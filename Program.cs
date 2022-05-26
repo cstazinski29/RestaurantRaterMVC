@@ -1,6 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using RestaurantRaterMVC.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Template from the swapi API modules
+// builder.Services.AddHttpClient("swapi", client =>
+// {
+//     client.BaseAddress = new Uri("https://swapi.dev/api/");
+// });
+
+builder.Services.AddHttpsRedirection(options => options.HttpsPort = 443);
+
+builder.Services.AddDbContext<RestaurantDbContext>(options =>
+options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    )
+);
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
