@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // });
 
 builder.Services.AddHttpsRedirection(options => options.HttpsPort = 443);
+// builder.Services.AddHttpsRedirection(options => options.HttpsPort = 7038);
 
 builder.Services.AddDbContext<RestaurantDbContext>(options =>
 options.UseSqlServer(
