@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 //     client.BaseAddress = new Uri("https://swapi.dev/api/");
 // });
 
-builder.Services.AddHttpsRedirection(options => options.HttpsPort = 443);
+// Marty said dotnet 6 takes care of the https redirection so we don't need to add the below
+// builder.Services.AddHttpsRedirection(options => options.HttpsPort = 443);
 // builder.Services.AddHttpsRedirection(options => options.HttpsPort = 7038);
 
 builder.Services.AddDbContext<RestaurantDbContext>(options =>

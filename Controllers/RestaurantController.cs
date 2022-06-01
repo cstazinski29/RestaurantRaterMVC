@@ -7,14 +7,18 @@ namespace RestaurantRaterMVC.Controllers
 {
     public class RestaurantController : Controller
     {
+        private readonly ILogger<RestaurantController> _logger;
         private RestaurantDbContext _context;
-        public RestaurantController(RestaurantDbContext context)
+        public RestaurantController(ILogger<RestaurantController> logger, RestaurantDbContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
         public async Task<IActionResult> Index() {
-            List<RestaurantListItem> restaurants = await _context.Restaurants.Include(r => r.Ratings).Select(r => new RestaurantListItem()
+            List<RestaurantListItem> restaurants = await _context.Restaurants
+            .Include(r => r.Ratings)
+            .Select(r => new RestaurantListItem()
                 {
                     Id = r.Id,
                     Name = r.Name,
