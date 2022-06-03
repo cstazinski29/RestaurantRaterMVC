@@ -13,7 +13,8 @@
         <form asp-action="Create">
             <div class="form-group">
                 <label asp-for="RestaurantId" class="control-label"></label>
-                <input asp-for="RestaurantId" class="form-control" />
+                @* <input asp-for="RestaurantId" class="form-control" /> *@
+                @Html.DropDownListFor(r => r.RestaurantId, Model.RestaurantOptions)
                 <span asp-validation-for="RestaurantId" class="text-danger"></span>
             </div>
             <div class="form-group">

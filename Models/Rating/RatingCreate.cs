@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RestaurantRaterMVC.Models.Rating
 {
@@ -10,5 +11,6 @@ namespace RestaurantRaterMVC.Models.Rating
         [Required]
         [Range(1,10)]
         public double Score { get; set;}
+        public IEnumerable<SelectListItem> RestaurantOptions { get; set;} = new List<SelectListItem>();
     }
 }

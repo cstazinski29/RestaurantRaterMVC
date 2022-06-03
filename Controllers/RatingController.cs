@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RestaurantRaterMVC.Data;
 using RestaurantRaterMVC.Models;
@@ -41,10 +42,10 @@ namespace RestaurantRaterMVC.Controllers
 
                 return View(ratings);
         }
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
+        // public async Task<IActionResult> Create()
+        // {
+        //     return View();
+        // }
 
         [HttpPost]
         public async Task<IActionResult> Create(RatingCreate model)
@@ -63,6 +64,20 @@ namespace RestaurantRaterMVC.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            IEnumerable<SelectListItem> restaurantOptions = await _context.Restaurants.Select(r => new SelectListItem()
+            {
+                Text = r.Name,
+                Value = r.Id.ToString()
+            }).ToListAsync();
+
+            RatingCreate model = new RatingCreate();
+            model.RestaurantOptions = restaurantOptions;
+
+            return View(model);
         }
     }
 }
